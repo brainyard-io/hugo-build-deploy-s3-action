@@ -1,0 +1,32 @@
+name: 'Hugo build and deploy to s3'
+description: 'An action to render a hugo site an store it in s3'
+inputs:
+  hugo-dir:  # id of input
+    description: 'the directory where you have the hugo site'
+    required: true
+    default: '.'
+  bucket:
+    description: 'the bucket to upload your site'
+    required: true
+    default: 'example.com'
+  endpoint:
+    description: 'the s3 provider to use'
+    required: true
+    default: 'https://storage.googleapis.com'
+  access-key:
+    description: 'your s3 accesskey'
+    required: true
+    default: 'SOMEKEYYOUHAVE'
+  secret-key:
+    description: 'your s3 secret key'
+    required: true
+    default: 'SOMESECONDLONGERKEYYOUHAVE'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.hugo-dir }}
+    - ${{ inputs.bucket }}
+    - ${{ inputs.endpoint }}
+    - ${{ inputs.access-key }}
+    - ${{ inputs.secret-key }}
